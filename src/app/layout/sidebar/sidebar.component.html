@@ -9,7 +9,7 @@
       </div>
       <div class="pull-left info">
         <p></p>
-        <a href="javascript:void(0);"><i class="fa fa-circle"></i> Online</a>
+        <a href="javascript:void(0);"><em class="fa fa-circle"></em> Online</a>
       </div>
     </div>
 
@@ -19,15 +19,15 @@
       <!--      begin Administration menu-->
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-user-secret"></i> <span>Administration</span>
+          <em class="fa fa-user-secret"></em> <span>Administration</span>
           <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
+            <em class="fa fa-angle-left pull-right"></em>
           </span>
         </a>
         <ul class="treeview-menu">
           <li>
             <a [routerLinkActive]="'active'" [routerLink]="'/admin/utilisateurs'" href="javascript:void(0);">
-              <i class="fa fa-user"></i>
+              <em class="fa fa-user"></em>
               <span>Utilisateurs</span>
             </a>
           </li>
@@ -57,21 +57,27 @@
       <!--      begin gestion enfant menu-->
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-building"></i> <span>Gestion Enfants</span>
+          <em class="fa fa-building"></em> <span>Gestion Enfants</span>
           <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
+            <em class="fa fa-angle-left pull-right"></em>
           </span>
         </a>
         <ul class="treeview-menu">
           <li>
             <a [routerLinkActive]="'active'" [routerLink]="'/gestion-enfant/inscription'" href="javascript:void(0);">
-              <i class="fa fa-product-hunt"> </i>
+              <em class="fa fa-product-hunt"> </em>
               <span>Inscription</span>
             </a>
           </li>
           <li>
+            <a [routerLinkActive]="'active'" [routerLink]="'/gestion-enfant/sites'" href="javascript:void(0);">
+              <em class="fa fa-product-hunt"> </em>
+              <span>Sites</span>
+            </a>
+          </li>
+          <li>
             <a [routerLinkActive]="'active'" [routerLink]="'/gestion-enfant/type-document'" href="javascript:void(0);">
-              <i class="fa fa-product-hunt"> </i>
+              <em class="fa fa-product-hunt"> </em>
               <span>Type document</span>
             </a>
           </li>

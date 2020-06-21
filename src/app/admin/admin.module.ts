@@ -7,6 +7,10 @@ import {UtilisateurComponent} from './utilisateur/utilisateur/utilisateur.compon
 import {UtilisateurAddComponent} from './utilisateur/utilisateur-add/utilisateur-add.component';
 import {MatCardModule} from '@angular/material/card';
 import {NgxSelectModule} from 'ngx-select-ex';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @NgModule({
@@ -17,7 +21,11 @@ import {NgxSelectModule} from 'ngx-select-ex';
     MatSlideToggleModule,
     MatFormFieldModule,
     MatCardModule,
-    NgxSelectModule
+    NgxSelectModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatInputModule,
+    MatSelectModule
   ]
 })
 export class AdminModule { }

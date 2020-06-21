@@ -55,7 +55,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
 
   loadSites() {
     this.subscription.push(
-      this.inscriptionService.listSitesByConnectedUser().subscribe(
+      this.inscriptionService.listSitesByConnectedUser(false).subscribe(
         (data) => {
           this.siteList = data;
         },

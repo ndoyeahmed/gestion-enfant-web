@@ -18,6 +18,10 @@ export class UtilisateursService {
     return this.http.get(this.api + '/utilisateurs/' + archive);
   }
 
+  listUtilisateursByArchiveAndStatut(archive: boolean, statut: boolean): Observable<any> {
+    return this.http.get(this.api + '/utilisateurs/archive-statut/' + archive + '/' + statut);
+  }
+
   saveUtilisateur(utilisateur: any): Observable<any> {
     return this.http.post(this.api + '/utilisateurs', utilisateur);
   }

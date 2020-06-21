@@ -1,23 +1,20 @@
-<section class="content-header">
+<mat-card>
   <h1>
     Gestion des types de document
   </h1>
-  <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Acceuil</a></li>
-    <li class="active"><a href="#">Type document</a></li>
+  <ol class="breadcrumb text-right">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+    <li class="active">Type document</li>
   </ol>
-</section>
+</mat-card>
 <section class="content">
   <div class="row">
     <div class="col-xs-12">
       <div class="box box-widget no-radius">
         <div class="box-header">
           <div class="box-title">
-            <button [routerLink]="'/gestion-enfant/type-document/add'" class="btn btn-primary no-radius" id="jh-create-entity">
-              <span class="fa fa-plus"></span>
-              <span class="hidden-sm-down">
-                  Ajouter
-              </span>
+            <button [routerLink]="'/gestion-enfant/type-document/add'" color="primary" mat-raised-button type="button">
+              <em class="fa fa-plus"></em>&nbsp;Ajouter
             </button>
           </div>
           <div class="box-tools">
@@ -69,14 +66,16 @@
                       <td>{{(typeDocumentListFilterd && typeDocumentListFilterd.length > 0 ? typeDocumentListFilterd : typeDocumentList).indexOf(typeDoc) + 1}}</td>
                       <td>{{typeDoc.libelle ? typeDoc.libelle : ''}}</td>
                       <td class="text-center">
-                        <button [routerLink]="'/gestion-enfant/type-document/edit/' + typeDoc.id" class="btn btn-primary" type="button">
+                        <button [routerLink]="'/gestion-enfant/type-document/edit/' + typeDoc.id" color="primary"
+                                mat-mini-fab matTooltip="Modifier" type="button">
                           <em
-                            class="fa fa-edit"></em></button>
+                            class="fa fa-edit fa-lg"></em></button>
                         &nbsp;&nbsp;&nbsp;
-                        <button (click)="onDelete(typeDoc)" *ngIf="!typeDoc.archive" class="btn btn-danger"
+                        <button (click)="onDelete(typeDoc)" *ngIf="!typeDoc.archive" class="btn btn-danger" color="warn"
                                 data-target="#deleteModal"
+                                mat-mini-fab matTooltip="Supprimer"
                                 data-toggle="modal" type="button">
-                          <em class="fa fa-trash"></em></button>
+                          <em class="fa fa-trash fa-lg"></em></button>
                         &nbsp;&nbsp;&nbsp;
                       </td>
                     </tr>
@@ -104,8 +103,9 @@
                       <td>{{(typeDocumentListFilterd && typeDocumentListFilterd.length > 0 ? typeDocumentListFilterd : typeDocumentListArchived).indexOf(typeDoc) + 1}}</td>
                       <td>{{typeDoc.libelle ? typeDoc.libelle : ''}}</td>
                       <td class="text-center">
-                        <button (click)="restore(typeDoc)" *ngIf="typeDoc.archive" class="btn btn-warning" type="button">
-                          <em class="fa fa-undo"></em></button>
+                        <button (click)="restore(typeDoc)" *ngIf="typeDoc.archive" class="btn btn-warning"
+                                color="primary" mat-mini-fab matTooltip="Restaurer" type="button">
+                          <em class="fa fa-undo fa-lg"></em></button>
                       </td>
                     </tr>
                     </tbody>

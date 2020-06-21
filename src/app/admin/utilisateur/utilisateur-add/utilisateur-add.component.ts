@@ -6,7 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {MyToastrService} from '../../../shared/my-toastr/my-toastr.service';
 import {UtilisateursService} from '../../services/utilisateurs.service';
 import {ProfilModel} from '../../../shared/models/admin/profil.model';
-import {INgxSelectOption} from 'ngx-select-ex';
+import {MatSelectChange} from '@angular/material/select';
 
 @Component({
   selector: 'app-utilisateur-add',
@@ -129,7 +129,8 @@ export class UtilisateurAddComponent implements OnInit, OnDestroy {
     this.url = null;
   }
 
-  onSelectedProfil($event: INgxSelectOption[]) {
-    this.profil = $event[0].data as ProfilModel;
+
+  onSelectedProfil($event: MatSelectChange) {
+    this.profil = $event.value as ProfilModel;
   }
 }

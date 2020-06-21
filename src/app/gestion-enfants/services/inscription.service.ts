@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpEventType, HttpRequest, HttpResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {TypeDocumentModel} from '../../shared/models/gestion-enfants/type-document.model';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {DossierModel} from '../../shared/models/gestion-enfants/dossier.model';
+import {SiteModel} from '../../shared/models/gestion-enfants/site.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,10 @@ export class InscriptionService {
     return this.http.put(this.api + 'type-document/' + id, body);
   }
 
+  archiveSite(id: number, archive: any): Observable<any> {
+    return this.http.put(this.api + 'sites/archive/' + id, archive);
+  }
+
   typeDocumentById(id: number): Observable<any> {
     return this.http.get(this.api + 'type-document/' + id);
   }
@@ -40,8 +45,12 @@ export class InscriptionService {
     return this.http.get(this.api + 'sites/archive/' + archive);
   }
 
-  listSitesByConnectedUser(): Observable<any> {
-    return this.http.get(this.api + 'sites/connected-user');
+  addSite(site: SiteModel): Observable<any> {
+    return this.http.post(this.api + 'sites', site);
+  }
+
+  listSitesByConnectedUser(archive: boolean): Observable<any> {
+    return this.http.get(this.api + 'sites/connected-user/archive/' + archive);
   }
 
   inscription(dossier: DossierModel): Observable<any> {

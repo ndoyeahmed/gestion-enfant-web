@@ -1,23 +1,21 @@
-<section class="content-header">
+<mat-card>
   <h1>
     Gestion des utilisateurs
   </h1>
-  <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Acceuil</a></li>
-    <li class="active"><a href="#">Utilisateurs</a></li>
+  <ol class="breadcrumb text-right">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+    <li class="active">Utilisateurs</li>
   </ol>
-</section>
+</mat-card>
 <section class="content">
   <div class="row">
     <div class="col-xs-12">
       <div class="box box-widget no-radius">
         <div class="box-header">
           <div class="box-title">
-            <button [routerLink]="'/admin/utilisateurs-add'" class="btn btn-primary no-radius" id="jh-create-entity">
-              <span class="fa fa-plus"></span>
-              <span class="hidden-sm-down">
-                  Ajouter
-              </span>
+            <button [routerLink]="'/admin/utilisateurs-add'" class="btn btn-primary" color="primary"
+                    mat-raised-button type="button">
+              <em class="fa fa-plus"></em>&nbsp;Ajouter
             </button>
           </div>
           <div class="box-tools">
@@ -93,14 +91,15 @@
                             {{!m.statut ? 'Activer' : 'Désactiver'}}</mat-label>
                         </mat-slide-toggle>
                         &nbsp;&nbsp;&nbsp;
-                        <button [routerLink]="'/admin/utilisateurs-edit/' + m.id" class="btn btn-primary" type="button">
+                        <button [routerLink]="'/admin/utilisateurs-edit/' + m.id" class="btn btn-primary"
+                                color="primary" mat-mini-fab matTooltip="Modifier" type="button">
                           <em
-                            class="fa fa-edit"></em></button>
+                            class="fa fa-edit fa-lg"></em></button>
                         &nbsp;&nbsp;&nbsp;
                         <button (click)="onDelete(m)" *ngIf="!m.archive" class="btn btn-danger"
-                                data-target="#deleteModal"
+                                color="warn" data-target="#deleteModal" mat-mini-fab matTooltip="Supprimer"
                                 data-toggle="modal" type="button">
-                          <em class="fa fa-trash"></em></button>
+                          <em class="fa fa-trash fa-lg"></em></button>
                         &nbsp;&nbsp;&nbsp;
                       </td>
                     </tr>
@@ -143,8 +142,10 @@
                       <td>{{m.telephone ? m.telephone : ''}}</td>
                       <td>{{m.profilUtilisateurs ? m.profilUtilisateurs[0].profil.libelle : ''}}</td>
                       <td class="text-center">
-                        <button (click)="restore(m)" *ngIf="m.archive" class="btn btn-warning" type="button">
-                          <em class="fa fa-undo"></em></button>
+                        <button (click)="restore(m)" *ngIf="m.archive" class="btn btn-warning" color="primary"
+                                mat-mini-fab
+                                matTooltip="Restaurer" type="button">
+                          <em class="fa fa-undo fa-lg"></em></button>
                       </td>
                     </tr>
                     </tbody>
