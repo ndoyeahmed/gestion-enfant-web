@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TypeDocumentModel} from '../../../shared/models/gestion-enfants/type-document.model';
 import {MatSelectChange} from '@angular/material/select';
 import {Subscription} from 'rxjs';
@@ -7,7 +7,6 @@ import {DocumentModel} from '../../../shared/models/gestion-enfants/document.mod
 import {NgxSpinnerService} from 'ngx-spinner';
 import {SiteModel} from '../../../shared/models/gestion-enfants/site.model';
 import {EnfantModel} from '../../../shared/models/gestion-enfants/enfant.model';
-import {MatDatepickerInputEvent} from '@angular/material/datepicker';
 import * as moment from 'moment';
 import {DossierModel} from '../../../shared/models/gestion-enfants/dossier.model';
 import {MyToastrService} from '../../../shared/my-toastr/my-toastr.service';
@@ -84,6 +83,7 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     this.enfant = new EnfantModel();
     this.url = null;
     this.site = new SiteModel();
+    this.documentList = [];
     this.clearDocumentForm();
   }
 

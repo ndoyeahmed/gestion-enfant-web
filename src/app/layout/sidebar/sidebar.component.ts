@@ -21,6 +21,13 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.connectedUser = this.auth
       .convertText('decrypt', this.storage.retrieve('mdd_user'));
+
+    // @ts-ignore
+    $(document).ready(() => {
+      // @ts-ignore
+      const trees: any = $('[data-widget="tree"]');
+      trees.tree();
+    });
   }
 
 }
