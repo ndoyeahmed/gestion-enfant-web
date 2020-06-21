@@ -1,0 +1,84 @@
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img [src]="connectedUser.photo ? connectedUser.photo : '../../../assets/images/login2.png'"
+             alt="User Image" class="img-circle">
+      </div>
+      <div class="pull-left info">
+        <p></p>
+        <a href="javascript:void(0);"><i class="fa fa-circle"></i> Online</a>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="header">MAIN NAVIGATION</li>
+
+      <!--      begin Administration menu-->
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-user-secret"></i> <span>Administration</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a [routerLinkActive]="'active'" [routerLink]="'/admin/utilisateurs'" href="javascript:void(0);">
+              <i class="fa fa-user"></i>
+              <span>Utilisateurs</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!--      end administration menu-->
+
+      <!--      begin gestion stock menu-->
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-building"></i> <span>Gestion stock</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a [routerLinkActive]="'active'" [routerLink]="'/stock/produits-add'" href="javascript:void(0);">
+              <i class="fa fa-product-hunt"> </i>
+              <span>Produits</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!--      end gestion stock menu-->
+
+      <!--      begin gestion enfant menu-->
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-building"></i> <span>Gestion Enfants</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a [routerLinkActive]="'active'" [routerLink]="'/gestion-enfant/inscription'" href="javascript:void(0);">
+              <i class="fa fa-product-hunt"> </i>
+              <span>Inscription</span>
+            </a>
+          </li>
+          <li>
+            <a [routerLinkActive]="'active'" [routerLink]="'/gestion-enfant/type-document'" href="javascript:void(0);">
+              <i class="fa fa-product-hunt"> </i>
+              <span>Type document</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!--      end gestion enfant menu-->
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

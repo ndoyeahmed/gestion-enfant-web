@@ -1,0 +1,129 @@
+<section class="content-header">
+  <h1>
+    Gestion des produits
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Acceuil</a></li>
+    <li class="active"><a href="#">{{id ? 'Modifier' : 'Ajouter'}} produits</a></li>
+  </ol>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box box-widget no-radius">
+        <div class="box-header">
+          <div class="box-title">
+            <button [routerLink]="'/stock/produits'" class="btn btn-primary no-radius" id="jh-create-entity">
+              <span class="fa fa-list"></span>
+              <span class="hidden-sm-down">
+                  Liste
+              </span>
+            </button>
+          </div>
+
+        </div>
+        <div class="box-body">
+          <ngx-spinner [fullScreen]="false" [name]="SPINNER_NAME" size="medium" type="timer"></ngx-spinner>
+          <div class="col-md-offset-1 col-md-10">
+            <form #produit_add_form="ngForm" (submit)="save()">
+              <div class="row form-group text-center">
+                <div class="col-md-4">
+                  <mat-card>
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <div class="row form-group">
+                          <img
+                            [src]="url ? url : '../../../assets/images/login2.png'" mat-card-lg-image
+                            alt="avatar User"/>
+                        </div>
+                        <div class="form-group row">
+                          <button type="button" class="btn btn-primary"
+                                  onclick="document.getElementById('avatarUserFile').click()"><em
+                            class="fa fa-edit fa-lg"></em></button>
+                          &nbsp;&nbsp;
+                          <button style="margin-top: 2%" class="btn btn-danger text-bold" type="button" *ngIf="url"
+                                  (click)="delete()"><em class="fa fa-trash fa-lg"></em></button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                        <input name="photoprofil" style="display:none;" id="avatarUserFile" type="file"
+                               (change)="onSelectFile($event)"/>
+                      </div>
+                    </div>
+                  </mat-card>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="code">Code</label>
+                    <input [(ngModel)]="produit.code" class="form-control" id="code" name="code"
+                           required type="text">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="libelle">Libellé</label>
+                    <input [(ngModel)]="produit.libelle" class="form-control" id="libelle" name="libelle"
+                           required type="text">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="prixUnitaire">Prix unitaire</label>
+                    <input [(ngModel)]="produit.prixUnitaire" class="form-control" id="prixUnitaire" name="prixUnitaire"
+                           required type="text">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="prixVente">Prix de vente</label>
+                    <input [(ngModel)]="produit.prixVente" class="form-control" id="prixVente" name="prixVente"
+                           required type="text">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="quantite">Quantité</label>
+                    <input [(ngModel)]="produit.quantite" class="form-control" id="quantite" name="quantite"
+                           required type="text">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="seuil">Quantité seuil</label>
+                    <input [(ngModel)]="produit.seuil" class="form-control" id="seuil" name="seuil"
+                           required type="text">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="categorie">Catégorie</label>
+                <ngx-select id="categorie" [items]="categories" optionTextField="nom"
+                            (selectionChanges)="onSelectedCategorie($event)"></ngx-select>
+              </div>
+
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea [(ngModel)]="produit.description" class="form-control" cols="12" id="description"
+                          name="description" required rows="3"></textarea>
+              </div>
+              <button [disabled]="!produit_add_form.valid" class="btn btn-primary" type="submit">Enregistrer</button>
+            </form>
+          </div>
+        </div>
+        <div class="box-footer"></div>
+      </div>
+    </div>
+  </div>
+</section>
