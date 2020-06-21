@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURI: 'http://localhost:8090'
+  baseURI: 'https://gestion-enfant-api.herokuapp.com'
 };
