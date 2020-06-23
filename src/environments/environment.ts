@@ -7,6 +7,9 @@ export const environment = {
   baseURI: 'https://gestion-enfant-api.herokuapp.com'
 };
 
+
+// https://gestion-enfant-api.herokuapp.com
+// http://localhost:8090
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

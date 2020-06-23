@@ -17,10 +17,11 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {SitesAddComponent} from './sites/sites-add/sites-add.component';
 import {SitesListComponent} from './sites/sites-list/sites-list.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {GestionDossierComponent} from './gestion-dossier/gestion-dossier/gestion-dossier.component';
 
 
 @NgModule({
-  declarations: [TypeDocumentAddComponent, TypeDocumentListComponent, InscriptionComponent, SitesAddComponent, SitesListComponent],
+  declarations: [TypeDocumentAddComponent, TypeDocumentListComponent, InscriptionComponent, SitesAddComponent, SitesListComponent, GestionDossierComponent],
   imports: [
     SharedModule,
     GestionEnfantsRouting,

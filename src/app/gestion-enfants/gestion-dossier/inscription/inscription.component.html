@@ -173,7 +173,7 @@
                       <div class="col-md-6">
                         <mat-form-field class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                           <mat-label>Libelle :</mat-label>
-                          <input [(ngModel)]="document.libelle" matInput name="libelledoc" type="text"/>
+                          <input [(ngModel)]="document.libelle" matInput name="libelledoc"/>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
@@ -211,18 +211,18 @@
                           <mat-list-item *ngFor="let doc of documentList">
                             <div class="col-md-10"> <h4 mat-line>{{doc.libelle}}</h4></div>
                             <div class="col-md-1">
-                              <button
-                                data-target="#previewModal"
-                                data-toggle="modal"
-                                type="button" color="primary"
-                                mat-mini-fab (click)="previewDoc(doc.document, doc.libelle)"><em
+                              <button matTooltip="Voir document"
+                                      data-target="#previewModal"
+                                      data-toggle="modal"
+                                      type="button" color="primary"
+                                      mat-mini-fab (click)="previewDoc(doc.document, doc.libelle)"><em
                                 class="fa fa-eye fa-lg"></em>
                               </button>
                             </div>
                             <div class="col-md-1">
-                              <button
-                                type="button" color="warn"
-                                mat-mini-fab (click)="deleteDoc(doc)"><em
+                              <button matTooltip="Supprimer document"
+                                      type="button" color="warn"
+                                      mat-mini-fab (click)="deleteDoc(doc)"><em
                                 class="fa fa-trash fa-lg"></em>
                               </button>
                             </div>

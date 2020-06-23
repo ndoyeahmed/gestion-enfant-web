@@ -1,0 +1,256 @@
+<mat-card>
+  <h1>
+    Gestion des dossiers
+  </h1>
+  <ol class="breadcrumb text-right">
+    <li><a href="#"><i class="fa fa-dashboard"></i> Accueil</a></li>
+    <li class="active">Dossiers enfants</li>
+  </ol>
+</mat-card>
+
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box box-widget no-radius">
+        <div class="box-header">
+          <div class="box-title">
+            <button [routerLink]="'/gestion-enfant/inscription'" class="btn btn-primary" color="primary"
+                    mat-raised-button type="button">
+              <em class="fa fa-plus"></em>&nbsp;Ajouter
+            </button>
+          </div>
+          <div class="box-tools">
+            <form #search_form="ngForm" class="form-inline pull-right" name="searchForm">
+              <div class="input-group">
+                <input [(ngModel)]="searchItem" class="form-control no-radius" id="currentSearch" name="currentSearch"
+                       required type="text">
+                <div class="input-group-btn">
+                  <button (click)="search()" [disabled]="!search_form.valid" class="btn btn-default no-radius">
+                    <i class="fa fa-search"></i>
+                  </button>
+                  <button (click)="resetSearch()" [disabled]="!search_form.valid"
+                          class="btn btn-danger margin-r-5 no-radius">
+                    <i class="fa fa-undo"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="box-body">
+          <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+              <li (click)="loadDossier()" class=""><a class="btn btn-success" data-toggle="tab"
+                                                      href="#archive"> <strong>Dossiers</strong></a></li>
+              <li (click)="loadDossierArchived()" class=""><a class="btn btn-success" data-toggle="tab"
+                                                              href="#nonArchive"> <strong>Dossiers archivés</strong>
+              </a></li>
+            </ul>
+
+            <div class="tab-content">
+              <ngx-spinner [fullScreen]="false" [name]="SPINNER_NAME" size="medium" type="timer"></ngx-spinner>
+              <div class="tab-pane active" id="archive">
+                <div *ngIf="dossierList?.length === 0" class="alert alert-warning no-radius">
+                  <span>Aucun résultat trouvé</span>
+                </div>
+                <div class="table-responsive">
+                  <table *ngIf="dossierList && dossierList.length > 0" aria-describedby="page-heading"
+                         class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th class="text-bold">N°</th>
+                      <th class="text-bold">Photo</th>
+                      <th class="text-bold">Code</th>
+                      <th class="text-bold">Nom & Prénom</th>
+                      <th class="text-bold">Date de naissance</th>
+                      <th class="text-bold">Site</th>
+                      <th class="text-bold">Documents</th>
+                      <th class="text-center text-bold">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                      *ngFor="let s of (dossierListFilterd && dossierListFilterd.length > 0 ? dossierListFilterd : dossierList)">
+                      <td>{{(dossierListFilterd && dossierListFilterd.length > 0 ? dossierListFilterd : dossierList).indexOf(s) + 1}}</td>
+                      <td class="text-center">
+                        <mat-card>
+                          <img [src]="s.enfant ? s.enfant.photo ? s.enfant.photo
+                          : '../../../assets/images/login2.png' : '../../../assets/images/login2.png'"
+                               alt="User Image" mat-card-sm-image>
+                        </mat-card>
+                      </td>
+                      <td>{{s.code ? s.code : ''}}</td>
+                      <td>{{s.enfant ? s.enfant.nom ? s.enfant.nom : '' : ''}} {{s.enfant ? s.enfant.prenom ? s.enfant.prenom : '' : ''}}</td>
+                      <td>{{s.enfant ? s.enfant.dateNaissance ? (s.enfant.dateNaissance | date : 'dd/MM/yyyy') : '' : ''}}</td>
+                      <td>{{s.enfant ? s.enfant.site ? s.enfant.site.libelle ? s.enfant.site.libelle : '' : '' : ''}}</td>
+                      <td>
+                        <button (click)="onDisplayDocumentList(s)" class="btn btn-default"
+                                color="primary" data-target="#documentModal" data-toggle="modal" mat-mini-fab
+                                matTooltip="Liste documents" type="button">
+                          <em class="fa fa-list fa-lg"></em></button>
+                      </td>
+                      <td class="text-center">
+                        <button [routerLink]="'/gestion-enfant/sites/edit/' + s.id" class="btn btn-primary"
+                                color="primary" mat-mini-fab
+                                matTooltip="Modifier" type="button">
+                          <em
+                            class="fa fa-edit fa-lg"></em></button>
+                        &nbsp;&nbsp;&nbsp;
+                        <button (click)="onDelete(s)" *ngIf="!s.archive" class="btn btn-danger" color="warn"
+                                data-target="#deleteModal" data-toggle="modal"
+                                mat-mini-fab
+                                matTooltip="Supprimer" type="button">
+                          <em class="fa fa-trash fa-lg"></em></button>
+                        &nbsp;&nbsp;&nbsp;
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="tab-pane" id="nonArchive">
+                <div *ngIf="dossierListArchived?.length === 0" class="alert alert-warning no-radius">
+                  <span>Aucun résultat trouvé</span>
+                </div>
+                <div class="table-responsive">
+                  <table *ngIf="dossierListArchived && dossierListArchived.length > 0" aria-describedby="page-heading"
+                         class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>N°</th>
+                      <th>Code</th>
+                      <th>Libellé</th>
+                      <th class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr
+                      *ngFor="let s of (dossierListFilterd && dossierListFilterd.length > 0 ? dossierListFilterd : dossierListArchived)">
+                      <td>{{(dossierListFilterd && dossierListFilterd.length > 0 ? dossierListFilterd : dossierListArchived).indexOf(s) + 1}}</td>
+                      <td>{{s.code ? s.code : ''}}</td>
+                      <td>{{s.libelle ? s.libelle : ''}}</td>
+                      <td class="text-center">
+                        <button (click)="restore(s)" *ngIf="s.archive" class="btn btn-warning" color="primary"
+                                mat-mini-fab matTooltip="Restaurer" type="button">
+                          <em class="fa fa-undo fa-lg"></em></button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-footer"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div aria-hidden="true" aria-labelledby="deleteModal" class="modal fade" id="deleteModal" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Suppression site</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <strong>Êtes-vous sur de vouloir le supprimé ?</strong>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" type="button">NON</button>
+        <button (click)="delete()" class="btn btn-danger" data-dismiss="modal" type="button">OUI</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="documentList && documentList.length > 0" aria-hidden="true" aria-labelledby="documentModal"
+     class="modal fade" id="documentModal" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="documentModalLabel">Liste des documents</h5>
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table aria-describedby="page-heading"
+                 class="table table-striped">
+            <thead>
+            <tr>
+              <th>N°</th>
+              <th>Code</th>
+              <th>Libellé</th>
+              <th>Type document</th>
+              <th class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+              *ngFor="let s of (documentListFilterd && documentListFilterd.length > 0 ? documentListFilterd : documentList)">
+              <td>{{(documentListFilterd && documentListFilterd.length > 0 ? documentListFilterd : documentList).indexOf(s) + 1}}</td>
+              <td>{{s.code ? s.code : ''}}</td>
+              <td>{{s.libelle ? s.libelle : ''}}</td>
+              <td>{{s.typeDocument ? s.typeDocument.libelle ? s.typeDocument.libelle : '' : ''}}</td>
+              <td class="text-center">
+                <button (click)="previewDoc(s.document)" class="btn btn-default" color="primary"
+                        data-target="#previewModal"
+                        data-toggle="modal"
+                        mat-mini-fab matTooltip="Voir document" type="button">
+                  <em class="fa fa-eye fa-lg"></em></button>
+                &nbsp;&nbsp;
+                <button (click)="downloadDoc(s.document, s.libelle)" class="btn btn-default"
+                        color="accent"
+                        mat-mini-fab matTooltip="Télécharger" type="button">
+                  <em class="fa fa-download fa-lg"></em></button>
+                &nbsp;&nbsp;
+                <button (click)="printDoc(s.document)" class="btn btn-default"
+                        color="accent"
+                        mat-mini-fab matTooltip="Imprimer" type="button">
+                  <em class="fa fa-print fa-lg"></em></button>
+                &nbsp;&nbsp;
+                <button class="btn btn-primary" color="primary"
+                        mat-mini-fab matTooltip="Modifier" type="button">
+                  <em class="fa fa-edit fa-lg"></em></button>
+                &nbsp;&nbsp;
+                <button class="btn btn-danger" color="warn"
+                        mat-mini-fab matTooltip="Supprimer" type="button">
+                  <em class="fa fa-trash fa-lg"></em></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" color="warn" data-dismiss="modal" mat-flat-button type="button">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div aria-hidden="true" aria-labelledby="previewModal" class="modal fade" id="previewModal" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pdf-viewer [original-size]="true"
+                    [render-text]="true"
+                    [src]="previewUrl"
+                    style="display: block; height: 100vh;"
+        ></pdf-viewer>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -57,4 +57,8 @@ export class InscriptionService {
     return this.http.post(this.api + 'inscription', dossier);
   }
 
+  listDossier(archive: boolean): Observable<any> {
+    return this.http.get(this.api + 'dossiers/archive-utilisateur/' + archive);
+  }
+
 }

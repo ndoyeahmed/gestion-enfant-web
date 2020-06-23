@@ -100,12 +100,13 @@ export class InscriptionComponent implements OnInit, OnDestroy {
             this.enfant.photo = null;
           }
           const dossier = new DossierModel();
+          this.enfant.site = this.site;
           dossier.enfant = this.enfant;
           dossier.documents = this.documentList;
-          console.log(dossier);
           this.subscription.push(
             this.inscriptionService.inscription(dossier).subscribe(
               (data) => {
+                console.log(data);
                 if (data && data.id) {
                   this.toast.success();
                 } else {
@@ -228,6 +229,5 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   onSelectedDate(event) {
     this.dateNaissance = moment(event.target.value);
     this.enfant.dateNaissance = this.dateNaissance;
-    console.log(this.enfant.dateNaissance );
   }
 }
