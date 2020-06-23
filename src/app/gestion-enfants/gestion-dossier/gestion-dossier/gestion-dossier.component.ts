@@ -76,7 +76,6 @@ export class GestionDossierComponent implements OnInit, OnDestroy {
     this.subscription.push(
       this.inscriptionService.listDossier(false).subscribe(
         (data) => {
-          console.log(data);
           this.dossierList = data;
         },
         (error) => {
