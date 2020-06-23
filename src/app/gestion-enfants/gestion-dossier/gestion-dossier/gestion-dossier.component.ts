@@ -55,9 +55,11 @@ export class GestionDossierComponent implements OnInit, OnDestroy {
     this.subscription.push(
       this.inscriptionService.listDossier(true).subscribe(
         (data) => {
+          console.log(data);
           this.dossierListArchived = data;
         },
         (error) => {
+          console.log(error);
           this.toast.error('Erreur de chargement des données');
           this.spinner.hide(this.SPINNER_NAME);
         },
@@ -74,9 +76,11 @@ export class GestionDossierComponent implements OnInit, OnDestroy {
     this.subscription.push(
       this.inscriptionService.listDossier(false).subscribe(
         (data) => {
+          console.log(data);
           this.dossierList = data;
         },
         (error) => {
+          console.log(error);
           this.toast.error('Erreur de chargement des données');
           this.spinner.hide(this.SPINNER_NAME);
         },
