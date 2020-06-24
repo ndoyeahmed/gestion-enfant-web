@@ -14,3 +14,9 @@ export const GESTION_DOSSIER_ROUTES: Route = {
   component: GestionDossierComponent,
   canActivate: [AuthGuardService]
 };
+
+export const AFFICHER_DOSSIER_ROUTES: Route = {
+  path: 'afficher-dossier/:id',
+  component: InscriptionComponent,
+  canActivate: [AuthGuardService]
+};

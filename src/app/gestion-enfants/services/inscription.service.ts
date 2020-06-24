@@ -61,4 +61,12 @@ export class InscriptionService {
     return this.http.get(this.api + 'dossiers/archive-utilisateur/' + archive);
   }
 
+  dossierById(id: number): Observable<any> {
+    return this.http.get(this.api + 'dossiers/id/' + id);
+  }
+
+  documentListByDossierId(id: number): Observable<any> {
+    return this.http.get(this.api + 'documents/dossier/' + id);
+  }
+
 }

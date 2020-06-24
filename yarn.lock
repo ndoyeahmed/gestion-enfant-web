@@ -6074,6 +6074,11 @@ ng2-pdf-viewer@^6.3.0:
     pdfjs-dist "^2.4.456"
     tslib "^1.10.0"
 
+ngx-pagination@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-pagination/-/ngx-pagination-5.0.0.tgz#a4b4c150a70aef17ccd825e4543e174a974bbd14"
+  integrity sha512-Ur0pTWRe2ZXoJ8impEzo0IZKxY5aEcQfSmL5uBqW1rHI2J6nfzgZAHsSLagKHFGchXq0PkRlDVVMcIaNxYJwvQ==
+
 ngx-select-ex@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/ngx-select-ex/-/ngx-select-ex-4.0.0.tgz#3012b593782bbe06c3dc621331ee9aaf5229df2b"

@@ -6,6 +6,8 @@ export class DossierModel {
   public code: string;
   public libelle: string;
   public archive: boolean;
+  public nombreDocAFournir: number;
+  public nombreDocFournis: number;
   public enfant: EnfantModel;
   public documents: DocumentModel[];
 }

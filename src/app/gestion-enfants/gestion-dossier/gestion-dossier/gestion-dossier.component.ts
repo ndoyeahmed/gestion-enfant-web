@@ -12,6 +12,7 @@ import {DocumentModel} from '../../../shared/models/gestion-enfants/document.mod
   styleUrls: ['./gestion-dossier.component.css']
 })
 export class GestionDossierComponent implements OnInit, OnDestroy {
+  page = 1;
   previewUrl = '';
   searchItem = '';
   SPINNER_NAME = 'dossier-list';

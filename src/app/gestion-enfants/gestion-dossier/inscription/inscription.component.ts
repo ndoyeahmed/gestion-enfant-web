@@ -10,6 +10,7 @@ import {EnfantModel} from '../../../shared/models/gestion-enfants/enfant.model';
 import * as moment from 'moment';
 import {DossierModel} from '../../../shared/models/gestion-enfants/dossier.model';
 import {MyToastrService} from '../../../shared/my-toastr/my-toastr.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-inscription',
@@ -17,6 +18,10 @@ import {MyToastrService} from '../../../shared/my-toastr/my-toastr.service';
   styleUrls: ['./inscription.component.css']
 })
 export class InscriptionComponent implements OnInit, OnDestroy {
+
+  isEdit: boolean;
+  isAdd: boolean;
+
   documentUrl = '';
   documentFileName = '';
   url = '';
@@ -26,9 +31,12 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   DOC_SPINNER_NAME = 'doc-list';
   INSCRIPTION_SPINNER = 'inscription';
 
-  dateNaissance: any = null;
+  dateNaissance = new Date();
 
+  id: number;
   subscription = [] as Subscription[];
+  DOSSIER_SPINNER = 'type-doc-form';
+  DOCUMENT_SPINNER = 'type-doc-form';
   typeDocument = new TypeDocumentModel();
   typeDocumentList = [] as TypeDocumentModel[];
   document = new DocumentModel();
@@ -36,10 +44,12 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   siteList = [] as SiteModel[];
   site = new SiteModel();
   enfant = new EnfantModel();
+  dossier = new DossierModel();
 
   constructor(
     private spinner: NgxSpinnerService,
     private toast: MyToastrService,
+    private route: ActivatedRoute,
     private inscriptionService: InscriptionService
   ) {
   }
@@ -49,8 +59,60 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit(): void {
-    this.loadTypeDocument();
-    this.loadSites();
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    if (this.id && this.id !== 0) {
+      this.isEdit = false;
+      this.loadDossierById(this.id);
+      this.loadDocumentByDossierId(this.id);
+    } else {
+      this.loadTypeDocument();
+      this.loadSites();
+      this.isAdd = true;
+    }
+  }
+
+  onEdit() {
+    this.isEdit = true;
+  }
+
+  onCancel() {
+    this.isEdit = false;
+    this.loadDossierById(this.id);
+    this.loadDocumentByDossierId(this.id);
+  }
+
+  loadDossierById(id: number) {
+    this.spinner.show(this.DOSSIER_SPINNER);
+    this.subscription.push(
+      this.inscriptionService.dossierById(id).subscribe(
+        (data) => {
+          this.dossier = data;
+          this.url = this.dossier.enfant.photo;
+          this.enfant = this.dossier.enfant;
+          this.site = this.dossier.enfant.site;
+          this.dateNaissance = moment(this.dossier.enfant.dateNaissance).toDate();
+        },
+        (error) => {
+          this.toast.error('Erreur lors du chargement des données');
+          this.spinner.hide(this.DOSSIER_SPINNER);
+        }, () => this.spinner.hide(this.DOSSIER_SPINNER)
+      )
+    );
+  }
+
+  loadDocumentByDossierId(id: number) {
+    this.spinner.show(this.DOCUMENT_SPINNER);
+    this.subscription.push(
+      this.inscriptionService.documentListByDossierId(id).subscribe(
+        (data) => {
+          this.documentList = data;
+        },
+        (error) => {
+          this.toast.error('Erreur lors du chargement des données');
+          this.spinner.hide(this.DOCUMENT_SPINNER);
+        }, () => this.spinner.hide(this.DOCUMENT_SPINNER)
+      )
+    );
   }
 
   loadSites() {
@@ -84,10 +146,12 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     this.url = null;
     this.site = new SiteModel();
     this.documentList = [];
+    this.dossier = new DossierModel();
     this.clearDocumentForm();
   }
 
   inscription() {
+    this.enfant.dateNaissance = moment(this.dateNaissance);
     if (this.enfant && this.enfant.nom && this.enfant.prenom && this.enfant.dateNaissance
       && this.enfant.genre && this.enfant.adresse && this.enfant.telephone) {
       if (this.enfant.nom !== '' && this.enfant.prenom !== ''
@@ -99,12 +163,12 @@ export class InscriptionComponent implements OnInit, OnDestroy {
           } else {
             this.enfant.photo = null;
           }
-          const dossier = new DossierModel();
+          // const dossier = new DossierModel();
           this.enfant.site = this.site;
-          dossier.enfant = this.enfant;
-          dossier.documents = this.documentList;
+          this.dossier.enfant = this.enfant;
+          this.dossier.documents = this.documentList;
           this.subscription.push(
-            this.inscriptionService.inscription(dossier).subscribe(
+            this.inscriptionService.inscription(this.dossier).subscribe(
               (data) => {
                 console.log(data);
                 if (data && data.id) {
@@ -153,19 +217,6 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     this.url = null;
   }
 
-  /*addFiles() {
-    this.file.nativeElement.click();
-  }*/
-
-  /*onFilesAdded() {
-    const files: { [key: string]: File } = this.file.nativeElement.files;
-    for (const key in files) {
-      if (!isNaN(parseInt(key))) {
-        this.files.add(files[key]);
-      }
-    }
-  }*/
-
   onSelectedTypeDocument($event: MatSelectChange) {
     this.typeDocument = $event.value as TypeDocumentModel;
   }
@@ -206,12 +257,6 @@ export class InscriptionComponent implements OnInit, OnDestroy {
   }
 
   previewDoc(doc: string, filename: string) {
-    /*const linkSource = doc ;
-    const downloadLink = document.createElement('a');
-
-    downloadLink.href = linkSource;
-    downloadLink.download = filename;
-    downloadLink.click();*/
     this.spinner.show(this.DOC_SPINNER_NAME);
     this.previewUrl = doc;
     this.previewFileName = filename;
@@ -222,12 +267,28 @@ export class InscriptionComponent implements OnInit, OnDestroy {
     this.documentList.splice(this.documentList.indexOf(doc));
   }
 
+  downloadDoc(doc: string, filename: string) {
+    const linkSource = doc;
+    const downloadLink = document.createElement('a');
+
+    downloadLink.href = linkSource;
+    downloadLink.download = filename;
+    downloadLink.click();
+  }
+
+  printDoc(doc: string) {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = doc;
+    document.body.appendChild(iframe);
+    iframe.contentWindow.print();
+  }
+
   onSelectedSite($event: MatSelectChange) {
     this.site = $event.value as SiteModel;
   }
 
-  onSelectedDate(event) {
-    this.dateNaissance = moment(event.target.value);
-    this.enfant.dateNaissance = this.dateNaissance;
+  update() {
+
   }
 }

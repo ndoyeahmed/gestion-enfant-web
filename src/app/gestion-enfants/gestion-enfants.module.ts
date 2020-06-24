@@ -18,10 +18,12 @@ import {SitesAddComponent} from './sites/sites-add/sites-add.component';
 import {SitesListComponent} from './sites/sites-list/sites-list.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {GestionDossierComponent} from './gestion-dossier/gestion-dossier/gestion-dossier.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
-  declarations: [TypeDocumentAddComponent, TypeDocumentListComponent, InscriptionComponent, SitesAddComponent, SitesListComponent, GestionDossierComponent],
+  declarations: [TypeDocumentAddComponent, TypeDocumentListComponent,
+    InscriptionComponent, SitesAddComponent, SitesListComponent, GestionDossierComponent],
   imports: [
     SharedModule,
     GestionEnfantsRouting,
@@ -35,7 +37,9 @@ import {GestionDossierComponent} from './gestion-dossier/gestion-dossier/gestion
     MatListModule,
     MatSelectModule,
     PdfViewerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgxPaginationModule
   ]
 })
-export class GestionEnfantsModule { }
+export class GestionEnfantsModule {
+}

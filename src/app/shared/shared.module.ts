@@ -10,10 +10,11 @@ import {AuthInterceptorService} from './auth/auth-interceptor.service';
 import {AuthExpiredInterceptorService} from './auth/auth-expired-interceptor.service';
 import {NgxSpinnerModule} from 'ngx-spinner';
 import {MyToastrService} from './my-toastr/my-toastr.service';
+import {MaterialElevationDirective} from './material-elevation.directive';
 
 
 @NgModule({
-  declarations: [HasAnyAuthorityDirective],
+  declarations: [HasAnyAuthorityDirective, MaterialElevationDirective],
   imports: [
     CommonModule
   ],
@@ -24,6 +25,7 @@ import {MyToastrService} from './my-toastr/my-toastr.service';
     RouterModule,
     HttpClientModule,
     NgxSpinnerModule,
+    MaterialElevationDirective,
   ],
   providers: [
     AuthGuardService,
